@@ -1,44 +1,47 @@
-import Covid19CityList from '../config/covid19-city-list'
+import Covid19AreaList from '../config/covid19-area-list'
 
 interface ICovid19Manager {
-  data: {
+  total: {
     areaTree: any[]
     chinaDayList: any[]
-    chinaTotal: any[]
+    chinaTotal: any
     lastUpdateTime: string
     overseaLastUpdateTime: string
   }
-  cityList: any[]
+  area: any[]
+  areaList: any[]
   lastTime: number
-  updateData: (data: any) => void
-  shouldUpdateData: () => boolean
-  getData: () => ICovid19Manager['data']
+  updateTotal: (data: any) => void
+  shouldUpdate: () => boolean
+  getTotal: () => ICovid19Manager['total']
 }
 
 const Covid19Manager: ICovid19Manager = {
-  data: {
+  total: {
     areaTree: [],
     chinaDayList: [],
-    chinaTotal: [],
+    chinaTotal: {},
     lastUpdateTime: '',
     overseaLastUpdateTime: '',
   },
-  cityList: Covid19CityList,
+  area: [],
+  areaList: Covid19AreaList,
   lastTime: 0,
-  shouldUpdateData() {
+  shouldUpdate() {
     const oneHour = 1000 * 60 * 60
     if (Date.now() - this.lastTime >= oneHour) {
       return true
     }
     return false
   },
-  updateData(data: any) {
-    if (this.shouldUpdateData()) {
-      this.data = data
+  updateTotal(data: any) {
+    if (this.shouldUpdate()) {
+      this.lastTime = Date.now()
+      this.total = data
     }
   },
-  getData() {
-    return this.data
+  getTotal() {
+    return this.total
   },
 }
 

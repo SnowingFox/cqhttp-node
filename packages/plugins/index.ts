@@ -1,5 +1,6 @@
 import type { Fn } from '../../types'
 import SignIn from './sign-in'
+import covid19 from './covid-19'
 
 interface Plugins {
   message: Fn[]
@@ -7,7 +8,7 @@ interface Plugins {
 }
 
 const plugins: Plugins = {
-  message: [SignIn],
+  message: [SignIn, covid19],
   notice: [],
 }
 

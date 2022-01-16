@@ -2,7 +2,8 @@ import WebSocket from 'ws'
 import service from './config/service'
 import plugins from './plugins'
 import Covid19Manager from './utils/Covid19Manager'
-import getCOVID19 from './api/request/COVID-19'
+import { getCOVID19Total } from './api/request/COVID-19'
+import sendGroupMsg from './api/send-group-msg'
 
 const initWebSocket = () => {
   const ws = new WebSocket(service.server.ws)
@@ -16,9 +17,11 @@ const initWebSocket = () => {
 }
 
 const initCOVID19Data = (response: any) => {
-  if (Covid19Manager.shouldUpdateData()) {
-    getCOVID19().then((res) => {
-      Covid19Manager.updateData(res)
+  if (Covid19Manager.shouldUpdate()) {
+    getCOVID19Total().then((res) => {
+      Covid19Manager.updateTotal(res)
+    }).catch((err) => {
+      sendGroupMsg(response, err.toString())
     })
   }
 }

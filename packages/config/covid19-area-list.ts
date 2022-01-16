@@ -1,4 +1,4 @@
-const Covid19CityList = [
+const Covid19AreaList = [
   {
     code: '110000',
     name: '北京',
@@ -6238,7 +6238,7 @@ const Covid19CityList = [
   },
   {
     code: 'C2020040122094613',
-    name: '华盛顿特区',
+    name: '华盛顿',
     fullName: '华盛顿特区',
     parentCode: '7',
     level: 1,
@@ -7771,4 +7771,4 @@ const Covid19CityList = [
   },
 ]
 
-export default Covid19CityList
+export default Covid19AreaList
