@@ -53,7 +53,7 @@ export default function covid19(response: any) {
       `总死亡人数: ${today.total.dead}`,
       `总痊愈人数: ${today.total.heal}`,
       `总境外输入人数: ${today.total.input}`,
-      `总死亡率: ${(today.total.dead / (today.total.confirm === 0 ? 1 : today.total.confirm)).toFixed(2)}%`,
+      `总死亡率: ${(today.total.dead / (today.total.confirm === 0 ? 1 : today.total.confirm) * 100).toFixed(5)}%`,
     ])
 
     sendGroupMsg(response, message, 'msg')
