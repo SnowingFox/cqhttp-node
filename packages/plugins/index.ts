@@ -1,6 +1,7 @@
-import type { Fn } from '../../types'
+import type { Fn } from '../../../robot-ts/types'
 import SignIn from './sign-in'
 import covid19 from './covid-19'
+import Weibo from './weibo'
 
 interface Plugins {
   message: Fn[]
@@ -8,7 +9,7 @@ interface Plugins {
 }
 
 const plugins: Plugins = {
-  message: [SignIn, covid19],
+  message: [SignIn, covid19, Weibo],
   notice: [],
 }
 

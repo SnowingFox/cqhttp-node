@@ -56,6 +56,6 @@ export default function covid19(response: any) {
       `总死亡率: ${(today.total.dead / (today.total.confirm === 0 ? 1 : today.total.confirm)).toFixed(2)}%`,
     ])
 
-    sendGroupMsg(response, message)
+    sendGroupMsg(response, message, 'msg')
   })
 }

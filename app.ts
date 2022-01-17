@@ -6,5 +6,6 @@ const app = express()
 
 app.listen(service.server.port, () => {
   init()
+  console.log(1)
   console.log(`Example app listening at http://localhost:${service.server.port}`)
 })
