@@ -1,13 +1,14 @@
-import { transformCommands } from '../../utils/utils'
 import sendGroupMsg from '../../api/send-group-msg'
 import Tips from '../../utils/Tips'
-import { getCOVID19ByArea } from '../../api/request/COVID-19'
+import { getCOVID19ByArea, getCOVID19Total } from '../../api/request/COVID-19'
 import buildMsg from '../../utils/buildMsg'
 import Covid19AreaList from '../../config/covid19-area-list'
 import { solarSystem } from '../../utils/surprise'
+import type { ITransformGroupMiddleware } from '../../utils/types'
+import Covid19Manager from '../../utils/Covid19Manager'
 
-export default function covid19(response: any) {
-  const commands = transformCommands(response.message)
+export default async function covid19(response: ITransformGroupMiddleware) {
+  const commands = response.message
   if (!commands.length) {
     return
   }
@@ -15,9 +16,15 @@ export default function covid19(response: any) {
     return
   }
   if (commands[0] === '疫情' && commands.length === 1) {
-    sendGroupMsg(response, Tips('应该这样输入, 疫情 北京，道爷我才好给你最新的消息,tnnd'))
+    sendGroupMsg(response, Tips('应该这样输入, 疫情 北京，道爷我才好给你最新的消息'))
     return
   }
+
+  if (Covid19Manager.shouldUpdate()) {
+    const result = await getCOVID19Total()
+    Covid19Manager.updateTotal(result)
+  }
+
   const areaName = commands[1]
 
   // 搞点彩蛋
